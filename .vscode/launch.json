@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-HanbalSpringApplication<hanbalSpring>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.hanbal.hanbalSpring.HanbalSpringApplication",
+            "projectName": "hanbalSpring",
+            "args": ""
+        }
+    ]
+}
