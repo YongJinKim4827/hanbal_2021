@@ -6,15 +6,12 @@ import java.util.Optional;
 import com.hanbal.hanbalSpring.domain.Member;
 import com.hanbal.hanbalSpring.repository.MemberRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    @Autowired
     public MemberService(MemberRepository memberRepository){
         this.memberRepository = memberRepository;
     }
