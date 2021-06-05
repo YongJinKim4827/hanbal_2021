@@ -5,11 +5,14 @@ import java.util.Optional;
 
 import com.hanbal.hanbalSpring.domain.Member;
 import com.hanbal.hanbalSpring.repository.MemberRepository;
-import com.hanbal.hanbalSpring.repository.MemoryMemberRepository;
 
 public class MemberService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository){
+        this.memberRepository = memberRepository;
+    }
     
     /**
      * 회원가입
