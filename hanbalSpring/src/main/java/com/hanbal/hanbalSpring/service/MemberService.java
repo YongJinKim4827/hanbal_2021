@@ -3,11 +3,14 @@ package com.hanbal.hanbalSpring.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import com.hanbal.hanbalSpring.domain.Member;
 import com.hanbal.hanbalSpring.repository.MemberRepository;
 
 import org.springframework.stereotype.Service;
 
+@Transactional /* JPA는 항상 트랜잭션이 있어야함!*/
 public class MemberService {
 
     private final MemberRepository memberRepository;
