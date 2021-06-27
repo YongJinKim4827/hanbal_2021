@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch CoreApplication",
+            "request": "launch",
+            "mainClass": "hello.core.CoreApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-HanbalSpringApplication<hanbalSpring>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

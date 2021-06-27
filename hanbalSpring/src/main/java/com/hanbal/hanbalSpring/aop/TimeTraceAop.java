@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TimeTraceAop {
 
-    @Around("execution(* hanbal.hanbalSpring..*(..))") /* package 경로인듯..? */
+    @Around("execution(* com.hanbal.hanbalSpring..*(..))") /* package 경로인듯..? */
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable{
         long start = System.currentTimeMillis();
         System.out.println("Strat : " + joinPoint.toString());
