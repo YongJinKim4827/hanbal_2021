@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
+import Movie from "./Movies";
+import "./App.css";
 
 class App extends React.Component{
   //function이 아니기 때문에 Return이 없음
@@ -12,15 +15,38 @@ class App extends React.Component{
     movies : []
   }
 
-  componentDidMount(){
-    setTimeout(()=> {
-      this.setState({isLoading : false})
-    }, 6000)
-  }
-  render(){
-    const {isLoading} = this.state;
+  getMovies = async() => {
+    const {
+      data : {
+        data : {
+           movies
+          }
+        }
+      } = await axios.get(
+        "https://yts-proxy.nomadcoders1.now.sh/list_movies.json?sort_by=rating");
+      this.setState({movies, isLoading :false})
+    }
 
-    return <div>{isLoading ?  "Loading" : "We are Ready"}</div>
+  componentDidMount(){
+    this.getMovies();
+  }
+
+  render(){
+    const { isLoading, movies } = this.state;
+    return <section className="container">
+      {isLoading ? (<div className="loader">
+        <span className="loader__text">Loading...</span>
+      </div> )
+      : 
+      (<div className="movies">
+        {
+          movies.map(movie => {
+            return <Movie key = {movie.id} id={movie.id} year={movie.year} title={movie.title} summary={movie.summary} poster={movie.large_cover_image} genres={movie.genres}/>
+              })
+        }
+      </div>
+        )}
+        </section>
 
   }
 }
