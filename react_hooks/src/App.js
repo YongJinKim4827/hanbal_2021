@@ -1,37 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 //import "./styles.css";
 
-const content = [
-  {
-    tab: "Section 1",
-    content: "I'm the content of the Section 1"
-  },
-  {
-    tab: "Section 2",
-    content: "I'm the content of the Section 2"
-  }
-];
-
-const useTabs = (initTab, allTabs) => {
-  if (!allTabs || !Array.isArray(allTabs)) {
-    //Array.isArray(arg) arg가 Array인지 확인
-    return;
-  }
-  const [currentIndex, setCurrentIndex] = useState(initTab);
-  return {
-    currentItem: allTabs[currentIndex],
-    changeItem: setCurrentIndex
+const useTitle = (initTitle) => {
+  const [title, setTitle] = useState(initTitle);
+  const updateTitle = () => {
+    const htmlTitle = document.querySelector("title");
+    htmlTitle.innerText = title;
   };
+  useEffect(updateTitle, [title]);
+  return setTitle;
 };
-
 const App = () => {
-  const { currentItem, changeItem } = useTabs(0, content);
+  const titleUpdater = useTitle("Loading....");
+  setTimeout(() => titleUpdater("Home"), 5000);
   return (
     <div className="App">
-      {content.map((section, index) => (
-        <button onClick={() => changeItem(index)}>{section.tab}</button>
-      ))}
-      <div>{currentItem.content}</div>
+      <div>Hi</div>
     </div>
   );
 };
