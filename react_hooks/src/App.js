@@ -1,21 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 //import "./styles.css";
 
-const useTitle = (initTitle) => {
-  const [title, setTitle] = useState(initTitle);
-  const updateTitle = () => {
-    const htmlTitle = document.querySelector("title");
-    htmlTitle.innerText = title;
-  };
-  useEffect(updateTitle, [title]);
-  return setTitle;
+const useClick = (onClick) => {
+  if (onClick !== "function") {
+    return;
+  }
+  const el = useRef();
+  useEffect(() => {
+    if (el.current) {
+      el.current.addEventListener("click", onClick);
+    }
+    return () => {
+      if (el.current) {
+        el.current.removeEventListener("click", onClick);
+      }
+    };
+  }, []);
+  return el;
 };
 const App = () => {
-  const titleUpdater = useTitle("Loading....");
-  setTimeout(() => titleUpdater("Home"), 5000);
+  //const ref = useRef(); /*getElementByID와 유사함*/
+  const sayHello = () => console.log("say Hello");
+  const title = useClick(sayHello);
   return (
     <div className="App">
-      <div>Hi</div>
+      <h1 ref={title}>Hi</h1>
     </div>
   );
 };
