@@ -1,35 +1,37 @@
 import { useState } from "react";
 //import "./styles.css";
 
-const useInput = (initVal, validator) => {
-  const [value, setValue] = useState(initVal);
-  const onChange = (event) => {
-    const {
-      target: { value }
-    } = event;
-    let willUpdate = true;
-    if (typeof validator === "function") {
-      willUpdate = validator(value);
-    }
-    if (willUpdate) {
-      setValue(value);
-    }
+const content = [
+  {
+    tab: "Section 1",
+    content: "I'm the content of the Section 1"
+  },
+  {
+    tab: "Section 2",
+    content: "I'm the content of the Section 2"
+  }
+];
+
+const useTabs = (initTab, allTabs) => {
+  if (!allTabs || !Array.isArray(allTabs)) {
+    //Array.isArray(arg) arg가 Array인지 확인
+    return;
+  }
+  const [currentIndex, setCurrentIndex] = useState(initTab);
+  return {
+    currentItem: allTabs[currentIndex],
+    changeItem: setCurrentIndex
   };
-  return { value, onChange };
 };
 
 const App = () => {
-  const maxLen = (value) => {
-    if (value.length <= 10 && !value.includes("@")) {
-      return true;
-    }
-    return false;
-  };
-  const name = useInput("Mr.", maxLen);
+  const { currentItem, changeItem } = useTabs(0, content);
   return (
     <div className="App">
-      <h1>Hello</h1>
-      <input placeholder="Name" {...name} />
+      {content.map((section, index) => (
+        <button onClick={() => changeItem(index)}>{section.tab}</button>
+      ))}
+      <div>{currentItem.content}</div>
     </div>
   );
 };
